@@ -1,0 +1,542 @@
+body {
+    margin: 0;
+    font-family: Roboto, Arial, sans-serif;
+    padding: 0;
+    overflow: auto;
+    width: 100vw;
+}
+main{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-image: url(../images/encabezado1); /* Ruta de la nueva imagen */
+    background-size: cover; /* Asegura que cubra todo sin distorsionarse */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    align-items: center;
+    height: 115px;
+    width: 100vw;
+    column-gap: 12px;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Alinea elementos a la derecha */
+    gap: 15px; /* Espaciado entre elementos */
+}
+
+
+.reloj-fecha{
+    background-color: transparent;
+    width: 200px;
+    height: 98px;
+    display: flex;
+    align-items:start;
+    justify-content: center;
+    flex-wrap: wrap;
+    row-gap: 2px;
+}
+
+.reloj{
+    font-family: 'DS-Digital', sans-serif;
+    color: #74a3ff;
+    font-size: 36px;
+    font-weight:bolder;
+    margin: 4px;
+    padding: 2px;
+    height: 50px;
+    text-align: center;
+
+}
+
+.fecha{
+    font-family: 'DS-Digital', sans-serif;
+    color: #aac9ff;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 4px;
+}
+
+.boton-cs {
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #f5f5f5;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 70px;
+}
+
+.user-info {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    color: #f5f5f5;
+    min-width: 25px;
+    margin-top: 70px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1;
+    display: none;
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+    background-color: #f1f1f1;
+}
+
+.material-symbols-outlined li{
+    color: black;
+}
+
+.user-info .dropdown-menu {
+    display: block;
+}
+
+.user-name {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-icon {
+    margin-left: 8px;
+}
+
+.task-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    align-items: start;
+    width: 80%;
+    min-height: 400px;
+    /*border: solid #008000;*/
+    border-radius: 7px;
+    border-width: 4px;
+    background-color: #f5f5f5;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+
+.addbutton-and-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /*border: solid red;*/
+    margin-bottom: 15px;
+    position: sticky; /* Hace que el elemento sea fijo */
+    top: 0; /* Fija el elemento en la parte superior */
+    z-index: 10; /* Asegura que quede por encima de otros elementos */
+    background-color: #f5f5f5; /* Asegura que tenga fondo */
+    padding: 10px; /* Espaciado adicional */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para diferenciarlo */
+}
+
+.addbutton-and-form .material-symbols-outlined{
+    display: none;
+}
+
+.add-task{
+    background-color: #0000de;
+    color: #f5f5f5;
+    text-align: center;
+    font-weight: bolder;
+    padding: 10px;
+    margin: 9px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 14px;
+    cursor: pointer;
+    width: 300px;
+}
+
+.form-task{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+    row-gap: 5px;
+    /*border: solid black;*/
+    background-color: #f5f5f5;
+    padding: 10px 55px;
+    border-radius: 14px;
+}
+
+.form-task.show {
+    display: flex; /* Mostrar el formulario cuando se agrega la clase 'show' */
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    z-index: 5; /* Capa encima del contenido pero debajo del formulario */
+}
+
+.form-task.show {
+    z-index: 10; /* Asegura que el formulario quede encima del overlay */
+}
+
+
+.in-task{
+    width: 80%;
+    height: 50px;
+    font-size: 20px;
+    padding: 5px;
+    border-color: #f5f5f9;
+    border-radius: 7px;
+}
+
+.form-task button{
+    width: 30%;
+    background-color: #0000de;
+    color: #f5f5f5;
+    font-weight: bold;
+    border-radius: 7px;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+}
+
+.form-task label{
+    display: block;
+    font-weight: bold;
+    padding: 4px;
+}
+
+.form-task input{
+    border-color: #f5f5f9;
+}
+
+.sh-date{
+    padding: 5px;
+    border-radius: 7px;
+    margin: 3px;
+}
+
+.task-list{
+    background-image: url(../images/corcho-background.jpg);
+    background-position: center;
+    background-repeat: repeat;
+    min-width: 900px;
+    max-width: 900px;
+    max-height: 400px; /* Limita la altura de la lista de tareas */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto; /* Habilita el scroll vertical dentro del contenedor */
+    padding: 12px;
+    row-gap: 4px;
+    column-gap: 4px;
+    margin-bottom: 10px;
+}
+
+.desctask {
+    font-weight: 600;
+    font-family: Kalam;
+    font-size: 18px;
+    line-height: 1.2em; /* Altura de cada línea */
+    max-height: calc(1.2em * 3); /* 3 líneas de alto */
+    min-height: calc(1.2em * 3);
+    margin-bottom: 45px;
+    margin-top: 7px;
+    
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    
+    overflow: hidden;
+    text-overflow: ellipsis; /* Añade "..." si el texto es muy largo */
+    word-break: break-word; /* Evita que palabras largas rompan el diseño */
+}
+
+
+.horafecha{
+    text-align: center;
+    font-weight: bolder;
+    font-family: Tillana;
+    font-size: 14px;
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-thickness: 3px;
+}
+
+.task-item{
+    max-width: 270px;
+    min-width: 270px;
+    max-height: 300px;
+    min-height: 300px;
+    border: solid black;
+    border-radius: 9px;
+    background-color: yellow;
+    padding: 5px;
+}
+
+.no-task{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 35px;
+    font-family: Kalam;
+    padding: 12px;
+    font-weight: bold;
+    text-decoration: underline;
+    text-decoration-color: blue;
+    text-decoration-thickness: 4px;
+    max-width: 270px;
+    min-width: 270px;
+    max-height: 300px;
+    min-height: 300px;
+    border: solid black;
+    border-radius: 9px;
+    background-color: yellow;
+    padding: 5px;
+}
+
+.botones{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    row-gap: 4px;
+    column-gap: 5px;
+    padding: 20px;
+}
+
+.material-symbols-outlined{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0000de;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 5px;
+    height: 60px;
+    width: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.task-item.completed {
+    background-color: #87CEEB; /* Azul celeste */
+}
+
+.material-symbols-outlined.disabled {
+    pointer-events: none; /* Evita interacciones */
+    opacity: 0.5; /* Indica que están desactivados */
+}
+
+.ft-diary{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: darkblue;
+    color: #f5f5f5;
+    padding: 10px;
+    position: relative; /* Evita conflictos con scroll */
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
+
+.ft-diary p{
+    text-align: center;
+}
+
+.cs{
+    display: none;
+}
+
+
+
+
+
+
+
+/* Responsive para pantallas pequeñas (móviles) */
+@media screen and (max-width: 768px) {
+    .encabezado {
+        flex-direction: column;
+        height: auto;
+        width: 100%;
+        align-items: center;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .reloj-fecha {
+        display: flex;
+        width: 100%;
+        height: auto;
+        align-items:center;
+        justify-content: start;
+    }
+
+    .reloj {
+        font-size: 30px;
+    }
+
+    .fecha {
+        font-size: 16px;
+    }
+
+    .user-container {
+        flex-direction: column;
+        align-items: flex-end;
+        width: 100%;
+        column-gap: 1px;
+        row-gap: 1px;
+    }
+
+    .user-info {
+        margin-top: 10px;
+        order: 2;
+    }
+
+    .cs{
+        display: flex;
+    }
+
+    .boton-cs {
+        display: none;
+        width: auto;
+        height: auto;
+        text-align:end;
+        order: 1;
+    }
+
+    .addbutton-and-form .material-symbols-outlined{
+        display: flex;
+    }
+
+    .add-task{
+        display: none;
+    }
+
+    .task-container {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .form-task button{
+        width: 40%;
+    }
+
+    .task-list {
+        min-width: 100%;
+        max-width: 100%;
+        max-height: auto;
+    }
+
+    .task-item {
+        min-width: 90%;
+        max-width: 90%;
+    }
+
+    .no-task {
+        min-width: 90%;
+        max-width: 90%;
+    }
+}
+
+/* Ajuste para pantallas en modo horizontal */
+@media screen and (max-width: 1024px) and (orientation: landscape) {
+    .encabezado {
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+        height:100px;
+    }
+
+    .reloj-fecha {
+        width: auto;
+        height: auto;
+    }
+
+    .user-container {
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: end;
+        width: auto;
+    }
+
+    .user-info{
+        display: flex;
+        align-items: end;
+        justify-content: flex-end;
+        margin-top: 55px;
+    }
+
+    .boton-cs {
+        width: auto;
+        margin-top: 0;
+        display: none;
+    }
+
+    .cs{
+        display: flex;
+    }
+
+    .addbutton-and-form .material-symbols-outlined{
+        display: flex;
+    }
+
+    .add-task{
+        display: none;
+    }
+
+    .task-container {
+        width: 90%;
+    }
+
+    .task-list {
+        min-width: 100%;
+        max-width: 100%;
+        max-height: 70vh;
+    }
+
+    .task-item {
+        min-width: 48%;
+        max-width: 48%;
+    }
+
+    .no-task {
+        min-width: 48%;
+        max-width: 48%;
+    }
+}
