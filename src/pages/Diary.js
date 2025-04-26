@@ -30,6 +30,10 @@ function Diary() {
         }
     }, [navigate]);
 
+    if (!userId) {
+        return <div>Cargando...</div>;
+      }
+
     const handleLogout = async () => {
         try {
             const response = await fetch(`${BASE_URL}/api/users/logout`, {
@@ -220,7 +224,7 @@ function Diary() {
                 ) : (
                     <>
                         <h1>Bienvenido a tu agenda </h1>
-                        <TaskArea taskList={taskList} setTaskList={setTaskList} />
+                        <TaskArea userId={userId} taskList={taskList} setTaskList={setTaskList} />
                     </>
                 )}
             </main>
