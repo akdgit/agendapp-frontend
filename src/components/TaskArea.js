@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 
-function TaskArea({ taskList, setTaskList}) {
+function TaskArea({ userId, taskList, setTaskList}) {
     const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
     const [showForm, setShowForm] = useState(false);
     const [task, setTask] = useState({
@@ -343,7 +343,29 @@ function TaskArea({ taskList, setTaskList}) {
     };
 
     // Función para obtener las tareas del usuario autenticado
-    const fetchTasks = async () => {
+    useEffect(() => {
+        if (!userId) {
+          console.log("User ID is not defined. Cannot fetch tasks.");
+          return;
+        }
+    
+        const fetchTasks = async () => {
+          try {
+            const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
+            if (response.ok) {
+              const data = await response.json();
+              setTaskList(data);
+            } else {
+              console.error("Failed to fetch tasks");
+            }
+          } catch (error) {
+            console.error("Error fetching tasks:", error);
+          }
+        };
+    
+        fetchTasks();
+      }, [userId, BASE_URL, setTaskList]); 
+    /*const fetchTasks = async () => {
         if (!userId) {
             console.error("User ID is not defined. Cannot fetch tasks.");
             return;
@@ -360,7 +382,7 @@ function TaskArea({ taskList, setTaskList}) {
         } catch (error) {
             console.error("Error fetching tasks:", error);
         }
-    };
+    };*/
     
     const handleClearTasks = async () => {
         try {
@@ -466,7 +488,7 @@ function TaskArea({ taskList, setTaskList}) {
                 {taskList.length > 0 ? (
                     taskList.map((task, index) => (
                         <div
-                        key={index}
+                        key={task.id}
                         className={`task-item ${task.done ? "completed" : ""}`}
                     >
                         <p className="desctask"> {task.description}</p>
