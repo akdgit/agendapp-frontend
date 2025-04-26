@@ -11,7 +11,7 @@ function TaskArea({ userId, taskList, setTaskList}) {
         endDate: ""
     });
     //const [taskList, setTaskList] = useState([]);  
-    const [userId, setUserId] = useState(null);  // Estado para el ID del usuario autenticado
+    //const [userId, setUserId] = useState(null);  // Estado para el ID del usuario autenticado
     const [isEditing, setIsEditing] = useState(false);  // Estado para indicar si estamos editando
     const [editingTaskId, setEditingTaskId] = useState(null);
     
@@ -403,7 +403,7 @@ function TaskArea({ userId, taskList, setTaskList}) {
     };
     
 
-    useEffect(() => {
+    /*useEffect(() => {
         // Recuperar el userId del localStorage
         const storedUserId = localStorage.getItem("userId");
     
@@ -413,7 +413,7 @@ function TaskArea({ userId, taskList, setTaskList}) {
         } else {
             console.error("No user ID found in localStorage");
         }
-    }, []);
+    }, []);*/
     
     useEffect(() => {
         if (userId) {
