@@ -18,11 +18,13 @@ function TaskArea({ userId, taskList, setTaskList }) {
       console.error("User ID is not defined. Cannot fetch tasks.");
       return;
     }
+    console.log("Llamando a:", `${BASE_URL}/api/act-user/${userId}`);
     try {
       const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
       if (response.ok) {
         const data = await response.json();
         setTaskList(data);
+        console.log("Tareas recibidas:", data);  
       } else {
         console.error("Failed to fetch tasks");
       }
@@ -32,9 +34,13 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   useEffect(() => {
+    console.log("Entrando a useEffect en TaskArea");
+    console.log("userId recibido:", userId);
     if (userId) {
       fetchTasks();
-    }
+    }else {
+        console.error("User ID is missing or undefined.");
+      }
   }, [userId, BASE_URL]);
 
   const handleToggleForm = () => {
