@@ -21,10 +21,13 @@ function Diary() {
     // Obtener datos del usuario al cargar la página
     useEffect(() => {
         const username = localStorage.getItem("username");
-        const userId = localStorage.getItem("userId");
+        //const userId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("userId");
         if (username && userId) {
             setUserName(username);
-            setUserId(userId);
+            //setUserId(userId);
+            setUserId(Number(storedUserId)); // 👈 Conversión aquí
+
         } else {
             navigate("/");  
         }
@@ -188,6 +191,7 @@ function Diary() {
     const handleCloseChangePasswordForm = () =>{
         setShowChangePassword(false);
     };
+    console.log("userId que se pasa al formulario:", userId);
 
     return (
         <div>

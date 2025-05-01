@@ -13,17 +13,20 @@ function UpdateUserForm({ userId, onClose }) {
 
     // ✅ Obtener los datos del usuario
     useEffect(() => {
+        console.log("userId recibido en UpdateUserForm:", userId);
         const fetchUserData = async () => {
             try {
                 const response = await fetch(`${BASE_URL}/api/users/${userId}`);
                 const data = await response.json();
 
                 if (response.ok && data) {
+                    console.log("Datos del usuario:", data);
                     const user = Array.isArray(data) ? data[0] : data;
                     setName(user.name);
                     setFullname(user.fullname);
                     setEmail(user.email);
                 } else {
+                    console.error("Respuesta del backend:", response.status, data);
                     console.error("Error al obtener los datos del usuario:", data);
                     Swal.fire("Error", "No se pudo cargar la información del usuario", "error");
                 }
