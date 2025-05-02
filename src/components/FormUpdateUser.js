@@ -57,8 +57,8 @@ function UpdateUserForm({ userId, onClose }) {
 
             if (response.ok) {
                 await Swal.fire("Éxito", "Perfil actualizado correctamente.", "success");
-                localStorage.setItem("username", name); // Actualizar nombre local
                 onClose();
+                localStorage.setItem("username", name); // Actualizar nombre local
                 navigate("/diary");
             } else {
                 Swal.fire("Error", "Error al actualizar el perfil.", "error");
