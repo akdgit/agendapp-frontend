@@ -56,8 +56,8 @@ function UpdateUserForm({ userId, onClose }) {
             });
 
             if (response.ok) {
-                await Swal.fire("Éxito", "Perfil actualizado correctamente.", "success");
                 onClose();
+                await Swal.fire("Éxito", "Perfil actualizado correctamente.", "success");
                 localStorage.setItem("username", name); // Actualizar nombre local
                 navigate("/diary");
             } else {
