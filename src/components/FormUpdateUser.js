@@ -7,7 +7,7 @@ function UpdateUserForm({ userId, onClose }) {
     const [name, setName] = useState("");
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
+    //const [isSubmitting, setIsSubmitting] = useState(false);
     const navigate = useNavigate();
     const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
 
@@ -45,7 +45,6 @@ function UpdateUserForm({ userId, onClose }) {
     // ✅ Actualizar los datos
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsSubmitting(true);
 
         try {
             const updates = { name, fullname, email };
@@ -66,9 +65,7 @@ function UpdateUserForm({ userId, onClose }) {
         } catch (error) {
             console.error("Error:", error);
             Swal.fire("Error", "Error al conectar con el servidor.", "error");
-        } finally {
-            setIsSubmitting(false);
-        }
+        } 
     };
 
     return (
@@ -106,8 +103,8 @@ function UpdateUserForm({ userId, onClose }) {
                             required
                         />
                     </label>
-                    <button disabled={isSubmitting} type="submit">
-                        {isSubmitting ? "Actualizando..." : "Actualizar"}
+                    <button type="submit">
+                        Actualizar
                     </button>
                     <button onClick={onClose} className="cancel-button" type="button">
                         Cancelar
