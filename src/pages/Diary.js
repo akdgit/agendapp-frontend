@@ -23,7 +23,7 @@ function Diary() {
         const username = localStorage.getItem("username");
         const storedUserId = localStorage.getItem("userId");
         //const userId = localStorage.getItem("userId");
-        if (username && userId) {
+        if (username && storedUserId) {
             setUserName(username);
             //setUserId(userId);
             setUserId(Number(storedUserId));
