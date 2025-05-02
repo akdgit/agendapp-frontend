@@ -21,7 +21,10 @@ function UpdateUserForm({ userId, onClose }) {
 
                 if (response.ok && data) {
                     console.log("Datos del usuario:", data);
-                    const user = Array.isArray(data) ? data[0] : data;
+                    //const user = Array.isArray(data) ? data[0] : data;
+                    const user = Array.isArray(data)
+                    ? Array.isArray(data[0]) ? data[0][0] : data[0]
+                    : data;
                     setName(user.name);
                     setFullname(user.fullname);
                     setEmail(user.email);
