@@ -21,7 +21,8 @@ function Diary() {
     // Obtener datos del usuario al cargar la página
     useEffect(() => {
         const username = localStorage.getItem("username");
-        const userId = localStorage.getItem("userId");
+        const storedUserId = localStorage.getItem("userId");
+        //const userId = localStorage.getItem("userId");
         if (username && userId) {
             setUserName(username);
             //setUserId(userId);
