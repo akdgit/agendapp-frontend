@@ -188,7 +188,7 @@ function Diary() {
     const handleCloseChangePasswordForm = () =>{
         setShowChangePassword(false);
     };
-    console.log("userId que se pasa al formulario:", userId);
+    
 
     return (
         <div>
