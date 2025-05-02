@@ -24,7 +24,8 @@ function Diary() {
         const userId = localStorage.getItem("userId");
         if (username && userId) {
             setUserName(username);
-            setUserId(userId);
+            //setUserId(userId);
+            setUserId(Number(storedUserId));
         } else {
             navigate("/");  
         }
