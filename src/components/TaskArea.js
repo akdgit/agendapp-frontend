@@ -259,13 +259,22 @@ function TaskArea({ userId, taskList, setTaskList }) {
           taskList.map((task) => (
             <div key={task.id} className={`task-item ${task.done ? "completed" : ""}`}>
               <p className="desctask">{task.description}</p>
-              <p><strong>Desde:</strong> {new Date(task.start_date).toLocaleString("es-ES", {
-                dateStyle: "short",
-                timeStyle: "short"
+              <p><strong>Desde:</strong> {new Date(task.start_date).toLocaleString("es-CO", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
               })}</p>
-              <p><strong>Hasta:</strong> {new Date(task.end_date).toLocaleString("es-ES", {
-                dateStyle: "short",
-                timeStyle: "short"
+
+              <p><strong>Hasta:</strong> {new Date(task.end_date).toLocaleString("es-CO", {
+                year: "2-digit",
+                month: "2-digit",
+                day: "2-digit",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true
               })}</p>
               <div className="botones">
                 <span
