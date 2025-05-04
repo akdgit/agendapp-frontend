@@ -186,6 +186,14 @@ function TaskArea({ userId, taskList, setTaskList }) {
     }
   };
 
+  const formatToLocal = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString(undefined, {
+      dateStyle: "short",
+      timeStyle: "short"
+    });
+  };
+
   return (
     <div className="task-container">
       <div className="addbutton-and-form">
@@ -240,9 +248,9 @@ function TaskArea({ userId, taskList, setTaskList }) {
           taskList.map((task) => (
             <div key={task.id} className={`task-item ${task.done ? "completed" : ""}`}>
               <p className="desctask">{task.description}</p>
-              <p className="horafecha"><strong>Desde:</strong> {new Date(task.start_date).toLocaleString()}</p>
-              <p className="horafecha"><strong>Hasta:</strong> {new Date(task.end_date).toLocaleString()}</p>
-              <div className="botones">
+              <p className="horafecha"><strong>Desde:</strong> {formatToLocal(task.start_date)}</p>
+              <p className="horafecha"><strong>Hasta:</strong> {formatToLocal(task.end_date)}</p>
+             <div className="botones">
                 <span
                   className="material-symbols-outlined"
                   role="button"
