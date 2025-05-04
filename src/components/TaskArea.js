@@ -64,17 +64,28 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   const handleEditTask = (task) => {
-    const toLocalDatetime = (dateString) => {
+    /*const toLocalDatetime = (dateString) => {
       const date = new Date(dateString);
       const offset = date.getTimezoneOffset();
       const localDate = new Date(date.getTime() - offset * 60 * 1000);
       return localDate.toISOString().slice(0, 16);
+    };*/
+
+    const toDatetimeLocalString = (dateString) => {
+      const date = new Date(dateString);
+      return date.toISOString().slice(0, 16);
     };
 
-    setTask({
+    /*setTask({
       description: task.description,
       startDate: toLocalDatetime(task.start_date),
       endDate: toLocalDatetime(task.end_date)
+    });*/
+
+    setTask({
+      description: task.description,
+      startDate: toDatetimeLocalString(task.start_date),
+      endDate: toDatetimeLocalString(task.end_date)
     });
     setEditingTaskId(task.id);
     setIsEditing(true);
