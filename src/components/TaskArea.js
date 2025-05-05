@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
+import { DateTime } from "luxon";
 
 function TaskArea({ userId, taskList, setTaskList }) {
   const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
@@ -18,13 +19,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
       console.error("User ID is not defined. Cannot fetch tasks.");
       return;
     }
-    console.log("Llamando a:", `${BASE_URL}/api/act-user/${userId}`);
     try {
       const response = await fetch(`${BASE_URL}/api/act-user/${userId}`);
       if (response.ok) {
         const data = await response.json();
         setTaskList(data);
-        console.log("Tareas recibidas:", data);  
       } else {
         console.error("Failed to fetch tasks");
       }
@@ -34,13 +33,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   useEffect(() => {
-    console.log("Entrando a useEffect en TaskArea");
-    console.log("userId recibido:", userId);
     if (userId) {
       fetchTasks();
-    }else {
-        console.error("User ID is missing or undefined.");
-      }
+    } else {
+      console.error("User ID is missing or undefined.");
+    }
   }, [userId, BASE_URL]);
 
   const handleToggleForm = () => {
@@ -63,25 +60,13 @@ function TaskArea({ userId, taskList, setTaskList }) {
     setEditingTaskId(null);
   };
 
+  const toDatetimeLocalString = (dateString) => {
+    return DateTime.fromISO(dateString, { zone: 'utc' })
+      .setZone('local')
+      .toFormat("yyyy-MM-dd'T'HH:mm");
+  };
+
   const handleEditTask = (task) => {
-    /*const toLocalDatetime = (dateString) => {
-      const date = new Date(dateString);
-      const offset = date.getTimezoneOffset();
-      const localDate = new Date(date.getTime() - offset * 60 * 1000);
-      return localDate.toISOString().slice(0, 16);
-    };*/
-
-    const toDatetimeLocalString = (dateString) => {
-      const date = new Date(dateString);
-      return date.toISOString().slice(0, 16);
-    };
-
-    /*setTask({
-      description: task.description,
-      startDate: toLocalDatetime(task.start_date),
-      endDate: toLocalDatetime(task.end_date)
-    });*/
-
     setTask({
       description: task.description,
       startDate: toDatetimeLocalString(task.start_date),
@@ -198,11 +183,9 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   const formatToLocal = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString(undefined, {
-      dateStyle: "short",
-      timeStyle: "short"
-    });
+    return DateTime.fromISO(dateString, { zone: 'utc' })
+      .setZone('America/Bogota')
+      .toLocaleString(DateTime.DATETIME_SHORT);
   };
 
   return (
@@ -259,25 +242,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
           taskList.map((task) => (
             <div key={task.id} className={`task-item ${task.done ? "completed" : ""}`}>
               <p className="desctask">{task.description}</p>
-              <p className="horafecha"><strong>Desde:</strong> {new Date(task.start_date).toLocaleString("es-CO", {
-                year: "2-digit",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-                timeZone: "America/Bogota"
-              })}</p>
-
-              <p className="horafecha"><strong>Hasta:</strong> {new Date(task.end_date).toLocaleString("es-CO", {
-                year: "2-digit",
-                month: "2-digit",
-                day: "2-digit",
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true,
-                 timeZone: "America/Bogota"
-              })}</p>
+              <p className="horafecha"><strong>Desde:</strong> {formatToLocal(task.start_date)}</p>
+              <p className="horafecha"><strong>Hasta:</strong> {formatToLocal(task.end_date)}</p>
               <div className="botones">
                 <span
                   className="material-symbols-outlined"
