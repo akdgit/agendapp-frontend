@@ -205,6 +205,15 @@ function TaskArea({ userId, taskList, setTaskList }) {
     });
   };
 
+  //Formato fecha listado de tareas
+  const formatSimpleDate = (isoString) => {
+    const [datePart, timePart] = isoString.split("T");
+    const [year, month, day] = datePart.split("-");
+    const shortYear = year.slice(2);
+    const time = timePart.slice(0, 5); // hh:mm
+    return `${day}/${month}/${shortYear} ${time}`;
+  };
+
   return (
     <div className="task-container">
       <div className="addbutton-and-form">
@@ -259,9 +268,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
           taskList.map((task) => (
             <div key={task.id} className={`task-item ${task.done ? "completed" : ""}`}>
               <p className="desctask">{task.description}</p>
-              <p className="horafecha"><strong>Desde:</strong> {task.start_date.replace("T", " ").slice(0, 16)}</p>
-              <p className="horafecha"><strong>Hasta:</strong> {task.end_date.replace("T", " ").slice(0, 16)}</p>
-
+              <p className="horafecha"><strong>Desde:</strong> {formatSimpleDate(task.start_date)}</p>
+              <p className="horafecha"><strong>Hasta:</strong> {formatSimpleDate(task.end_date)}</p>
               <div className="botones">
                 <span
                   className="material-symbols-outlined"
