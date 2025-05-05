@@ -206,12 +206,28 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   //Formato fecha listado de tareas
-  const formatSimpleDate = (isoString) => {
+  /*const formatSimpleDate = (isoString) => {
     const [datePart, timePart] = isoString.split("T");
     const [year, month, day] = datePart.split("-");
     const shortYear = year.slice(2);
     const time = timePart.slice(0, 5); // hh:mm
     return `${day}/${month}/${shortYear} ${time}`;
+  };*/
+
+  const formatSimpleDate = (isoString) => {
+    const date = new Date(isoString);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = String(date.getFullYear()).slice(2);
+  
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours === 0 ? 12 : hours;
+    const formattedTime = `${hours}:${minutes} ${ampm}`;
+  
+    return `${day}/${month}/${year} ${formattedTime}`;
   };
 
   return (
