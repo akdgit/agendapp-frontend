@@ -211,9 +211,9 @@ function TaskArea({ userId, taskList, setTaskList }) {
     const [year, month, day] = datePart.split("-");
     const shortYear = year.slice(2);
     const time = timePart.slice(0, 5); // hh:mm
-    const formattedTime = `${hours}:${minutes} ${ampm}`;
-    return `${day}/${month}/${year} ${formattedTime}`;
-    //return `${day}/${month}/${shortYear} ${time}`;
+    //const formattedTime = `${hours}:${minutes} ${ampm}`;
+    //return `${day}/${month}/${year} ${formattedTime}`;
+    return `${day}/${month}/${shortYear} ${time}`;
   };
 
   /*const formatSimpleDate = (isoString) => {
