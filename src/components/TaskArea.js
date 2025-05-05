@@ -60,17 +60,17 @@ function TaskArea({ userId, taskList, setTaskList }) {
     setEditingTaskId(null);
   };
 
-  const toDatetimeLocalString = (dateString) => {
-    return DateTime.fromISO(dateString, { zone: 'utc' })
-      .setZone('local')
-      .toFormat("yyyy-MM-dd'T'HH:mm");
-  };
-
   const handleEditTask = (task) => {
+    const toDatetimeLocalInput = (isoDate) => {
+      return DateTime.fromISO(isoDate, { zone: 'utc' })
+        .setZone("America/Bogota")
+        .toFormat("yyyy-LL-dd'T'HH:mm");
+    };
+
     setTask({
       description: task.description,
-      startDate: toDatetimeLocalString(task.start_date),
-      endDate: toDatetimeLocalString(task.end_date)
+      startDate: toDatetimeLocalInput(task.start_date),
+      endDate: toDatetimeLocalInput(task.end_date)
     });
     setEditingTaskId(task.id);
     setIsEditing(true);
@@ -120,8 +120,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
 
     const newTask = {
       description: task.description,
-      start_date: new Date(task.startDate).toISOString(),
-      end_date: new Date(task.endDate).toISOString(),
+      start_date: DateTime.fromISO(task.startDate, { zone: "America/Bogota" }).toUTC().toISO(),
+      end_date: DateTime.fromISO(task.endDate, { zone: "America/Bogota" }).toUTC().toISO(),
       user_id: userId
     };
 
@@ -182,9 +182,9 @@ function TaskArea({ userId, taskList, setTaskList }) {
     }
   };
 
-  const formatToLocal = (dateString) => {
-    return DateTime.fromISO(dateString, { zone: 'utc' })
-      .setZone('America/Bogota')
+  const formatToLocal = (isoString) => {
+    return DateTime.fromISO(isoString, { zone: "utc" })
+      .setZone("America/Bogota")
       .toLocaleString(DateTime.DATETIME_SHORT);
   };
 
