@@ -206,15 +206,17 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   //Formato fecha listado de tareas
-  /*const formatSimpleDate = (isoString) => {
+  const formatSimpleDate = (isoString) => {
     const [datePart, timePart] = isoString.split("T");
     const [year, month, day] = datePart.split("-");
     const shortYear = year.slice(2);
     const time = timePart.slice(0, 5); // hh:mm
-    return `${day}/${month}/${shortYear} ${time}`;
-  };*/
+    const formattedTime = `${hours}:${minutes} ${ampm}`;
+    return `${day}/${month}/${year} ${formattedTime}`;
+    //return `${day}/${month}/${shortYear} ${time}`;
+  };
 
-  const formatSimpleDate = (isoString) => {
+  /*const formatSimpleDate = (isoString) => {
     const date = new Date(isoString);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -228,7 +230,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
     const formattedTime = `${hours}:${minutes} ${ampm}`;
   
     return `${day}/${month}/${year} ${formattedTime}`;
-  };
+  };*/
 
   return (
     <div className="task-container">
