@@ -231,16 +231,28 @@ function TaskArea({ userId, taskList, setTaskList }) {
   
     return `${day}/${month}/${year} ${formattedTime}`;
   };*/
-
+  const handleKeyNavigation = (e, index) => {
+    if (e.key === "ArrowDown") {
+      const next = document.querySelector(`[data-task-index="${index + 1}"]`);
+      next?.focus();
+      e.preventDefault();
+    } else if (e.key === "ArrowUp") {
+      const prev = document.querySelector(`[data-task-index="${index - 1}"]`);
+      prev?.focus();
+      e.preventDefault();
+    }
+  };
+  
   return (
     <div className="task-container">
       <div className="addbutton-and-form">
-        <span className="add-task" onClick={handleToggleForm}>Agregar nueva tarea +</span>
-        <span className="material-symbols-outlined" onClick={handleToggleForm}>post_add</span>
+        <span aria-label="Agregar nueva tarea" tabIndex="0" type="button" className="add-task" onClick={handleToggleForm}>Agregar nueva tarea +</span>
+        <span aria-label="Agregar nueva tarea" tabIndex="0" type="button" className="material-symbols-outlined" onClick={handleToggleForm}>post_add</span>
         {showForm && <div className="overlay"></div>}
-        <form className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
+        <form aria-labelledby="form-title" className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
           <h1>{isEditing ? "Editar Tarea" : "Agregar Tarea"}</h1>
           <input
+            tabIndex="0"
             className="in-task"
             type="text"
             maxLength={100}
@@ -250,9 +262,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
             onChange={handleInputChange}
             required
           />
-          <label>
+          <label htmlFor="startDate">
             Inicia:
             <input
+              tabIndex="0"
+              id="startDate"
               className="sh-date"
               type="datetime-local"
               name="startDate"
@@ -261,9 +275,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
               required
             />
           </label>
-          <label>
+          <label htmlFor="endDate">
             Termina:
             <input
+              id="endDate"
+              tabIndex="0"
               className="sh-date"
               type="datetime-local"
               name="endDate"
@@ -272,24 +288,33 @@ function TaskArea({ userId, taskList, setTaskList }) {
               required
             />
           </label>
-          <button className="add-button" type="submit">
+          <button tabIndex="0" className="add-button" type="submit">
             {isEditing ? "Actualizar" : "Agregar"}
           </button>
-          <button type="button" className="cancel" onClick={handleCancel}>
+          <button aria-label="Cancelar formulario" tabIndex="0" type="button" className="cancel" onClick={handleCancel}>
             Cancelar
           </button>
         </form>
       </div>
 
-      <div className="task-list">
+      <div tabIndex="0" className="task-list">
         {taskList.length > 0 ? (
-          taskList.map((task) => (
-            <div key={task.id} className={`task-item ${task.done ? "completed" : ""}`}>
-              <p className="desctask">{task.description}</p>
-              <p className="horafecha"><strong>Desde:</strong> {formatSimpleDate(task.start_date)}</p>
-              <p className="horafecha"><strong>Hasta:</strong> {formatSimpleDate(task.end_date)}</p>
+          taskList.map((task, index) => (
+            <div 
+              key={task.id} 
+              className={`task-item ${task.done ? "completed" : ""}`}
+              role="region"
+              aria-labelledby={`task-title-${task.id}`}
+              data-task-index={index}
+              onKeyDown={(e) => handleKeyNavigation(e, index)}
+            >
+              <p tabIndex="0" className="desctask">{task.description}</p>
+              <p tabIndex="0" className="horafecha"><strong>Desde:</strong> {formatSimpleDate(task.start_date)}</p>
+              <p tabIndex="0" className="horafecha"><strong>Hasta:</strong> {formatSimpleDate(task.end_date)}</p>
               <div className="botones">
                 <span
+                  tabIndex="0"
+                  aria-label={task.done ? "Reabrir tarea" : "Completar tarea"}
                   className="material-symbols-outlined"
                   role="button"
                   data-tooltip-id="complete-tooltip"
@@ -299,6 +324,10 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   {task.done ? "change_circle" : "done_all"}
                 </span>
                 <span
+                  tabIndex="0"
+                  aria-label="Editar tarea"
+                  disabled={task.done}
+                  aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
                   data-tooltip-id="edit-tooltip"
@@ -308,6 +337,10 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   edit_note
                 </span>
                 <span
+                  tabIndex="0"
+                  aria-label="Eliminar tarea"
+                  disabled={task.done}
+                  aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
                   data-tooltip-id="delete-tooltip"
@@ -320,7 +353,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
             </div>
           ))
         ) : (
-          <p className="no-task">No hay tareas pendientes</p>
+          <p tabIndex="0" role="status" className="no-task">No hay tareas pendientes</p>
         )}
       </div>
 
