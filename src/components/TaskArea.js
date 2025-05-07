@@ -253,7 +253,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
   //Borrar tarea usandola navegación con teclado
   const handleDeleteKey = (e) => {
     if (e.key === "Enter") {
-      handleDeleteTask();
+      handleDeleteTask(task.id);
     }
   };
   
