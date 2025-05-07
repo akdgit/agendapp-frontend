@@ -242,10 +242,18 @@ function TaskArea({ userId, taskList, setTaskList }) {
       e.preventDefault();
     }
   };
-
+  
+  //Activar formulario de agregar tarea con eñteclado
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleToggleForm();
+    }
+  };
+
+  //Borrar tarea usandola navegación con teclado
+  const handleDeleteKey = (e) => {
+    if (e.key === "Enter") {
+      handleDeleteTask();
     }
   };
   
@@ -335,7 +343,6 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-label={task.done ? "Reabrir tarea" : "Completar tarea"}
                   className="material-symbols-outlined"
                   role="button"
-                  onKeyDown={handleKeyPress}
                   data-tooltip-id="complete-tooltip"
                   data-tooltip-content={task.done ? "Reabrir tarea" : "Completar tarea"}
                   onClick={() => handleToggleTaskStatus(task)}
@@ -349,7 +356,6 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
-                  onKeyDown={handleKeyPress}
                   data-tooltip-id="edit-tooltip"
                   data-tooltip-content="Editar tarea"
                   onClick={() => !task.done && handleEditTask(task)}
@@ -363,7 +369,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
-                  onKeyDown={handleKeyPress}
+                  onKeyDown={handleDeleteKey}
                   data-tooltip-id="delete-tooltip"
                   data-tooltip-content="Eliminar tarea"
                   onClick={() => handleDeleteTask(task.id)}
