@@ -315,8 +315,6 @@ function TaskArea({ userId, taskList, setTaskList }) {
       <div 
         tabIndex="0" 
         className="task-list"
-        data-task-index={index}
-        onKeyDown={(e) => handleKeyNavigation(e, index)}
         aria-label="Listado de tareas"
       >
         {taskList.length > 0 ? (
