@@ -257,7 +257,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
         tabIndex="0" 
         role="button"
         onKeyDown={handleKeyPress}
-        className="add-task" onClick={handleToggleForm}
+        className="add-task" 
+        onClick={handleToggleForm}
         >
           Agregar nueva tarea +
         </span>
@@ -311,7 +312,13 @@ function TaskArea({ userId, taskList, setTaskList }) {
         </form>
       </div>
 
-      <div tabIndex="0" className="task-list">
+      <div 
+        tabIndex="0" 
+        className="task-list"
+        data-task-index={index}
+        onKeyDown={(e) => handleKeyNavigation(e, index)}
+        aria-label="Listado de tareas"
+      >
         {taskList.length > 0 ? (
           taskList.map((task, index) => (
             <div 
@@ -319,8 +326,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
               className={`task-item ${task.done ? "completed" : ""}`}
               role="region"
               aria-labelledby={`task-title-${task.id}`}
-              data-task-index={index}
-              onKeyDown={(e) => handleKeyNavigation(e, index)}
+              
             >
               <p tabIndex="0" className="desctask">{task.description}</p>
               <p tabIndex="0" className="horafecha"><strong>Desde:</strong> {formatSimpleDate(task.start_date)}</p>
@@ -331,6 +337,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-label={task.done ? "Reabrir tarea" : "Completar tarea"}
                   className="material-symbols-outlined"
                   role="button"
+                  onKeyDown={handleKeyPress}
                   data-tooltip-id="complete-tooltip"
                   data-tooltip-content={task.done ? "Reabrir tarea" : "Completar tarea"}
                   onClick={() => handleToggleTaskStatus(task)}
@@ -344,6 +351,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
+                  onKeyDown={handleKeyPress}
                   data-tooltip-id="edit-tooltip"
                   data-tooltip-content="Editar tarea"
                   onClick={() => !task.done && handleEditTask(task)}
@@ -357,6 +365,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
+                  onKeyDown={handleKeyPress}
                   data-tooltip-id="delete-tooltip"
                   data-tooltip-content="Eliminar tarea"
                   onClick={() => handleDeleteTask(task.id)}
