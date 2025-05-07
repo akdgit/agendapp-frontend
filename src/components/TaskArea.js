@@ -242,11 +242,25 @@ function TaskArea({ userId, taskList, setTaskList }) {
       e.preventDefault();
     }
   };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleToggleForm();
+    }
+  };
   
   return (
     <div className="task-container">
       <div className="addbutton-and-form">
-        <span aria-label="Agregar nueva tarea" tabIndex="0" type="button" className="add-task" onClick={handleToggleForm}>Agregar nueva tarea +</span>
+        <span 
+        aria-label="Agregar nueva tarea" 
+        tabIndex="0" 
+        role="button"
+        onKeyDown={handleKeyPress}
+        className="add-task" onClick={handleToggleForm}
+        >
+          Agregar nueva tarea +
+        </span>
         <span aria-label="Agregar nueva tarea" tabIndex="0" type="button" className="material-symbols-outlined" onClick={handleToggleForm}>post_add</span>
         {showForm && <div className="overlay"></div>}
         <form aria-labelledby="form-title" className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
