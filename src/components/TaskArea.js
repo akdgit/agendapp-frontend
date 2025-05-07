@@ -251,6 +251,20 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   //Borrar tarea usandola navegación con teclado
+  const handleConfirmDelete = async (taskId) => {
+    const result = await Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción eliminará la tarea de manera permanente.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+  
+    if (result.isConfirmed) {
+      handleDeleteTask(taskId);
+    }
+  };
   
   
   return (
@@ -367,7 +381,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   role="button"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
-                      handleDeleteTask(task.id);
+                      handleConfirmDelete(task.id);
                     }
                   }}
                   data-tooltip-id="delete-tooltip"
