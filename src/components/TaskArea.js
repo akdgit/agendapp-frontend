@@ -251,11 +251,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
   };
 
   //Borrar tarea usandola navegación con teclado
-  const handleDeleteKey = (e) => {
-    if (e.key === "Enter") {
-      handleDeleteTask(task.id);
-    }
-  };
+  
   
   return (
     <div className="task-container">
@@ -369,7 +365,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   aria-disabled={task.done}
                   className={`material-symbols-outlined ${task.done ? "disabled" : ""}`}
                   role="button"
-                  onKeyDown={handleDeleteKey}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleDeleteTask(task.id);
+                    }
+                  }}
                   data-tooltip-id="delete-tooltip"
                   data-tooltip-content="Eliminar tarea"
                   onClick={() => handleDeleteTask(task.id)}
