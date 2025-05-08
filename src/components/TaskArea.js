@@ -265,6 +265,26 @@ function TaskArea({ userId, taskList, setTaskList }) {
       handleDeleteTask(taskId);
     }
   };
+
+  const handleConfirmToggleStatus = async (task) => {
+    const isCompleting = !task.done;
+    const confirmationMessage = isCompleting
+      ? "¿Deseas marcar esta tarea como completada?"
+      : "¿Deseas reabrir esta tarea?";
+  
+    const confirmed = await Swal.fire({
+      title: confirmationMessage,
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "Sí",
+      cancelButtonText: "No",
+    });
+  
+    if (confirmed.isConfirmed) {
+      handleToggleTaskStatus(task);
+    }
+  };
+  
   
   
   return (
@@ -356,6 +376,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   data-tooltip-id="complete-tooltip"
                   data-tooltip-content={task.done ? "Reabrir tarea" : "Completar tarea"}
                   onClick={() => handleToggleTaskStatus(task)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleConfirmToggleStatus(task);
+                    }
+                  }}
                 >
                   {task.done ? "change_circle" : "done_all"}
                 </span>
