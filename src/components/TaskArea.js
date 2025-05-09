@@ -394,6 +394,11 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   data-tooltip-id="edit-tooltip"
                   data-tooltip-content="Editar tarea"
                   onClick={() => !task.done && handleEditTask(task)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !task.done) {
+                      handleEditTask(task);
+                    }
+                  }}
                 >
                   edit_note
                 </span>
