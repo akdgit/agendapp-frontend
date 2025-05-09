@@ -291,7 +291,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
     if (showForm && descriptionInputRef.current) {
       descriptionInputRef.current.focus();
     }
-  }, [showForm])
+  }, [showForm]);
   
   
   
