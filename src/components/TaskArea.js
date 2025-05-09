@@ -313,6 +313,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
             placeholder="¿Qué vas a agendar?"
             value={task.description}
             onChange={handleInputChange}
+            autoFocus
             required
           />
           <label htmlFor="startDate">
