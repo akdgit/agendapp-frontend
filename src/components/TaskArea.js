@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Tooltip } from "react-tooltip";
 import Swal from "sweetalert2";
 
@@ -10,6 +10,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
     startDate: "",
     endDate: ""
   });
+  const descriptionInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
 
@@ -284,6 +285,13 @@ function TaskArea({ userId, taskList, setTaskList }) {
       handleToggleTaskStatus(task);
     }
   };
+
+  //Foco primer ampo de creadción de tarea
+  useEffect(() => {
+    if (showForm && descriptionInputRef.current) {
+      descriptionInputRef.current.focus();
+    }
+  }, [showForm])
   
   
   
@@ -313,7 +321,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
             placeholder="¿Qué vas a agendar?"
             value={task.description}
             onChange={handleInputChange}
-            autoFocus
+            ref={descriptionInputRef}
             required
           />
           <label htmlFor="startDate">
