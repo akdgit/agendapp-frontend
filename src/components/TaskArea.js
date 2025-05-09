@@ -13,6 +13,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
   const descriptionInputRef = useRef(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const taskRefs = useRef([]);
+  const tasksPerRow = 1;
 
   const fetchTasks = async () => {
     if (!userId) {
@@ -232,7 +234,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
   
     return `${day}/${month}/${year} ${formattedTime}`;
   };*/
-  const handleKeyNavigation = (e, index) => {
+  /*const handleKeyNavigation = (e, index) => {
     if (e.key === "ArrowDown") {
       const next = document.querySelector(`[data-task-index="${index + 1}"]`);
       next?.focus();
@@ -242,9 +244,37 @@ function TaskArea({ userId, taskList, setTaskList }) {
       prev?.focus();
       e.preventDefault();
     }
-  };
+  };*/
   
   //Activar formulario de agregar tarea con eñteclado
+  
+  const handleArrowNavigation = (e, index) => {
+    const total = taskRefs.current.length;
+    let nextIndex = index;
+  
+    switch (e.key) {
+      case "ArrowRight":
+        nextIndex = (index + 1) % total;
+        break;
+      case "ArrowLeft":
+        nextIndex = (index - 1 + total) % total;
+        break;
+      case "ArrowDown":
+        nextIndex = index + tasksPerRow;
+        if (nextIndex >= total) return;
+        break;
+      case "ArrowUp":
+        nextIndex = index - tasksPerRow;
+        if (nextIndex < 0) return;
+        break;
+      default:
+        return;
+    }
+  
+    e.preventDefault();
+    taskRefs.current[nextIndex]?.focus();
+  };  
+  
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       handleToggleForm();
@@ -371,7 +401,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
               className={`task-item ${task.done ? "completed" : ""}`}
               role="region"
               aria-labelledby={`task-title-${task.id}`}
-              
+              ref={(el) => (taskRefs.current[index] = el)}
+              onKeyDown={(e) => handleArrowNavigation(e, index)}
             >
               <p tabIndex="0" className="desctask">{task.description}</p>
               <p tabIndex="0" className="horafecha"><strong>Desde:</strong> {formatSimpleDate(task.start_date)}</p>
