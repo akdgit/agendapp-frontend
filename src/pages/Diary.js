@@ -190,6 +190,12 @@ function Diary() {
     const handleCloseChangePasswordForm = () =>{
         setShowChangePassword(false);
     };
+
+    const deployMenuKey = (e) => {
+        if (e.key === "Enter") {
+            toggleMenu();
+        }
+    };
     
 
     return (
@@ -197,8 +203,12 @@ function Diary() {
             <header className="encabezado">
                 <ClockDate />
                 <div className="user-container">
-                <div className="user-info">
-                <span onClick={toggleMenu} className="user-name">
+                <div tabIndex="0" aria-label="Menú principal" className="user-info">
+                <span 
+                    onClick={toggleMenu} 
+                    className="user-name"
+                    onKeyDown={deployMenuKey}
+                >
                     {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
                     <span className="dropdown-icon">▼</span>
                 </span>
