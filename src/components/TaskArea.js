@@ -405,6 +405,7 @@ function TaskArea({ userId, taskList, setTaskList }) {
                   onClick={() => !task.done && handleEditTask(task)}
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !task.done) {
+                      e.preventDefault();
                       handleEditTask(task);
                     }
                   }}
