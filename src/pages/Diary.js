@@ -193,7 +193,7 @@ function Diary() {
 
     const deployMenuKey = (e) => {
         if (e.key === "Enter") {
-            toggleMenu();
+            toggleMenu(showMenu);
         }
     };
     
