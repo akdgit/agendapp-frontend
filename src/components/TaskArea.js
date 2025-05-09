@@ -340,8 +340,8 @@ function TaskArea({ userId, taskList, setTaskList }) {
         </span>
         <span aria-label="Agregar nueva tarea" tabIndex="0" type="button" className="material-symbols-outlined" onClick={handleToggleForm}>post_add</span>
         {showForm && <div className="overlay"></div>}
-        <form aria-labelledby="form-title" className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
-          <h1>{isEditing ? "Editar Tarea" : "Agregar Tarea"}</h1>
+        <form role="region" aria-labelledby="form-title" className={`form-task ${showForm ? 'show' : ''}`} onSubmit={handleSubmit}>
+          <h1 id="form-title"> {isEditing ? "Editar Tarea" : "Agregar Tarea"}</h1>
           <input
             tabIndex="0"
             className="in-task"
