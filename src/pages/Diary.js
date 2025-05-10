@@ -194,6 +194,8 @@ function Diary() {
     const deployMenuKey = (e) => {
         if (e.key === "Enter") {
             toggleMenu();
+        }else if (e.key === "Escape"  && showMenu) {
+            setShowMenu(false);
         }
     };
     
@@ -212,6 +214,7 @@ function Diary() {
                 <span 
                     onClick={toggleMenu} 
                     className="user-name"
+                    tabIndex="0"
                 >
                     {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
                     <span className="dropdown-icon">▼</span>
@@ -219,11 +222,11 @@ function Diary() {
                     {showMenu && (
                         <div className="dropdown-menu">
                             <ul>
-                                <li onClick={handleEditProfile}> Editar perfil</li>
-                                <li onClick={handleClearTasks}>Limpiar lista de Tareas</li>
-                                <li onClick={handleChangePassword}>Cambiar contraseña</li>
-                                <li onClick={handleDesableAccount}>Desactivar cuenta</li>
-                                <li onClick={handleLogout} className="cs">Cerrar sesiòn</li>
+                                <li tabIndex="0" onClick={handleEditProfile}> Editar perfil</li>
+                                <li tabIndex="0" onClick={handleClearTasks}>Limpiar lista de Tareas</li>
+                                <li tabIndex="0" onClick={handleChangePassword}>Cambiar contraseña</li>
+                                <li tabIndex="0" onClick={handleDesableAccount}>Desactivar cuenta</li>
+                                <li tabIndex="0" onClick={handleLogout} className="cs">Cerrar sesiòn</li>
                             </ul>
                         </div>
                     )}
