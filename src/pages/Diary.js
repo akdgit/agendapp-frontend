@@ -227,6 +227,7 @@ function Diary() {
                     onKeyDown={deployMenuKey} 
                     aria-label="Menú principal" 
                     className="user-info"
+                    ref={menuRef}
                 >
                 <span 
                     onClick={toggleMenu} 
