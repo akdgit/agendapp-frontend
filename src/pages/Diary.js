@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import ChangePasswoerdForm from "../components/ChangePasswordForm";
 import UpdateUserForm from "../components/FormUpdateUser";
@@ -15,8 +15,25 @@ function Diary() {
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [showChangePassword, setShowChangePassword] = useState(false);
     const [taskList, setTaskList] = useState([]); 
+    const menuRef = useRef(null);
     const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
     console.log("BASE_URL:", BASE_URL);
+
+
+
+    //Click hide menuu
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setShowMenu(false);
+          }
+        };
+      
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, []);      
 
     // Obtener datos del usuario al cargar la página
     useEffect(() => {
