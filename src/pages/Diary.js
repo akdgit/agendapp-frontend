@@ -193,7 +193,7 @@ function Diary() {
 
     const deployMenuKey = (e) => {
         if (e.key === "Enter") {
-            toggleMenu(showMenu);
+            toggleMenu();
         }
     };
     
@@ -203,11 +203,15 @@ function Diary() {
             <header className="encabezado">
                 <ClockDate />
                 <div className="user-container">
-                <div tabIndex="0" aria-label="Menú principal" className="user-info">
+                <div 
+                    tabIndex="0" 
+                    onKeyDown={deployMenuKey} 
+                    aria-label="Menú principal" 
+                    className="user-info"
+                >
                 <span 
                     onClick={toggleMenu} 
                     className="user-name"
-                    onKeyDown={deployMenuKey}
                 >
                     {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
                     <span className="dropdown-icon">▼</span>
