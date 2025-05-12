@@ -18,6 +18,29 @@ function Diary() {
     const menuRef = useRef(null);
     const BASE_URL = process.env.REACT_APP_BASE_URL || "http://192.168.10.16:4000";
     console.log("BASE_URL:", BASE_URL);
+    const menuItemsRef = useRef([]);
+
+    const handleMenuKeyDown = (e) => {
+        if (!showMenu) return;
+
+        const focusIndex = menuItemsRef.current.findIndex((el) => el === document.activeElement);
+
+        if (e.key === "ArrowDown") {
+            e.preventDefault();
+            const nextIndex = (focusIndex + 1) % menuItemsRef.current.length;
+            menuItemsRef.current[nextIndex]?.focus();
+        }
+
+            if (e.key === "ArrowUp") {
+                e.preventDefault();
+                const prevIndex = (focusIndex - 1 + menuItemsRef.current.length) % menuItemsRef.current.length;
+                menuItemsRef.current[prevIndex]?.focus();
+            }
+
+            if (e.key === "Escape") {
+                setShowMenu(false);
+            }
+    };
 
 
 
@@ -222,38 +245,57 @@ function Diary() {
             <header className="encabezado">
                 <ClockDate />
                 <div className="user-container">
-                <div 
-                    tabIndex="0" 
-                    onKeyDown={deployMenuKey} 
-                    aria-label="Menú principal" 
-                    className="user-info"
-                    ref={menuRef}
-                >
-                <span 
-                    onClick={toggleMenu} 
-                    className="user-name"
+                    <div
                     tabIndex="0"
-                >
-                    {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
-                    <span className="dropdown-icon">▼</span>
-                </span>
+                    aria-label="Menú principal"
+                    className="user-info"
+                    onKeyDown={deployMenuKey}
+                    ref={menuRef}
+                    >
+                    <span onClick={toggleMenu} className="user-name" tabIndex="0">
+                        {userName.length > 12 ? `${userName.slice(0, 12)}...` : userName}
+                        <span className="dropdown-icon">▼</span>
+                    </span>
+
                     {showMenu && (
-                        <div className="dropdown-menu">
-                            <ul>
-                                <li tabIndex="0" onClick={handleEditProfile}> Editar perfil</li>
-                                <li tabIndex="0" onClick={handleClearTasks}>Limpiar lista de Tareas</li>
-                                <li tabIndex="0" onClick={handleChangePassword}>Cambiar contraseña</li>
-                                <li tabIndex="0" onClick={handleDesableAccount}>Desactivar cuenta</li>
-                                <li tabIndex="0" onClick={handleLogout} className="cs">Cerrar sesiòn</li>
-                            </ul>
+                        <div className="dropdown-menu" onKeyDown={handleMenuKeyDown}>
+                        <ul>
+                            {[
+                            { label: "Editar perfil", handler: handleEditProfile },
+                            { label: "Limpiar lista de Tareas", handler: handleClearTasks },
+                            { label: "Cambiar contraseña", handler: handleChangePassword },
+                            { label: "Desactivar cuenta", handler: handleDesableAccount },
+                            { label: "Cerrar sesión", handler: handleLogout, className: "cs" },
+                            ].map((item, index) => (
+                            <li
+                                key={item.label}
+                                tabIndex="0"
+                                role="menuitem"
+                                aria-label={item.label}
+                                className={item.className || ""}
+                                ref={(el) => (menuItemsRef.current[index] = el)}
+                                onClick={item.handler}
+                                onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    item.handler();
+                                }
+                                }}
+                            >
+                                {item.label}
+                            </li>
+                            ))}
+                        </ul>
                         </div>
                     )}
-                </div>
-                <button className="boton-cs" onClick={handleLogout}>
+                    </div>
+
+                    <button className="boton-cs" onClick={handleLogout}>
                     Cerrar sesión
-                </button>
+                    </button>
                 </div>
             </header>
+
             <main>
                 {showUpdateForm ? (
                     <UpdateUserForm userId={userId} onClose={handleCloseUpdateForm} />
