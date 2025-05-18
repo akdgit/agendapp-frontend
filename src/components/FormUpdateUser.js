@@ -71,11 +71,13 @@ function UpdateUserForm({ userId, onClose }) {
     return (
         <div className="overlay1">
             <div className="update-user">
-                <form className="form-update-user" onSubmit={handleSubmit}>
-                    <p>Actualizar perfil</p>
+                <form role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
+                    <p id="form-title">Actualizar perfil</p>
                     <label>
                         Nombre:
                         <input
+                            tabIndex="0"
+                            aria-label="Nombre"
                             type="text"
                             value={name}
                             onChange={(e) => setName(e.target.value)}
