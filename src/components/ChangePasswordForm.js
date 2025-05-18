@@ -92,11 +92,13 @@ function UpdateUserForm({ userId, onClose }) {
     return (
         <div className="overlay1"> {/* Superposición para desactivar el resto de la pantalla */}
             <div className="update-user">
-                <form className="form-update-user" onSubmit={handleSubmit}>
-                    <p>Actualizar Contraseña</p>
+                <form tabIndex="0" role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
+                    <p id="form-title">Actualizar Contraseña</p>
                     <label>
                         Nueva contraseña:
                         <input
+                            tabIndex="0"
+                            aria-label="Nueva contraseña"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -107,6 +109,8 @@ function UpdateUserForm({ userId, onClose }) {
                     <label>
                         Confirmar contraseña:
                         <input
+                            tabIndex="0"
+                            aria-label="Confirmar contraseña"
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
