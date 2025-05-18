@@ -31,7 +31,7 @@ function ClockDate() {
     }, []);
 
     return (
-        <div className="reloj-fecha">
+        <div tabIndex="0" aria-label="Hora y fecha" className="reloj-fecha">
             <p 
                 aria-label="Reloj, son las" 
                 tabIndex="0"
