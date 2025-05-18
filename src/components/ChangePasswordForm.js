@@ -92,7 +92,7 @@ function UpdateUserForm({ userId, onClose }) {
     return (
         <div className="overlay1"> {/* Superposición para desactivar el resto de la pantalla */}
             <div className="update-user">
-                <form tabIndex="0" role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
+                <form tabIndex="0" autoFocus role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
                     <p id="form-title">Actualizar Contraseña</p>
                     <label>
                         Nueva contraseña:
