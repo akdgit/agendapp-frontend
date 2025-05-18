@@ -32,7 +32,19 @@ function ClockDate() {
 
     return (
         <div className="reloj-fecha">
-            <p className="reloj"> {hora} <p className="fecha"> {fecha} </p> </p>         
+            <p 
+                aria-label="Reloj, son las" 
+                tabIndex="0"
+                className="reloj"
+            > 
+                {hora}
+                 <p 
+                    aria-label="Fecha, hoy es" 
+                    tabIndex="0"
+                    className="fecha"
+                > {fecha} 
+                </p> 
+            </p>         
         </div>
     );
 }
