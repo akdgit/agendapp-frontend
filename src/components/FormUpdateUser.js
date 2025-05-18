@@ -71,7 +71,7 @@ function UpdateUserForm({ userId, onClose }) {
     return (
         <div className="overlay1">
             <div className="update-user">
-                <form role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
+                <form autoFocus role="region" aria-labelledby="form-title" className="form-update-user" onSubmit={handleSubmit}>
                     <p id="form-title">Actualizar perfil</p>
                     <label>
                         Nombre:
