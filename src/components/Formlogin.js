@@ -194,11 +194,20 @@ function Formlogin(props) {
       {showFormSendEmail ? (
         <FormSendEmail onClose={handleCloseFormSendEmail} />
       ): (
-        <form className="form-login" onSubmit={handleLogin}>
-          <h1 className="title"> Comienza a planificar tu día </h1>
+        <form 
+          className="form-login" 
+          onSubmit={handleLogin}
+          tabIndex="0"
+          autoFocus
+          role="region"
+          aria-labelledby="form-title"
+        >
+          <h1 id="form-titld" className="title"> Comienza a planificar tu día </h1>
           <p>{props.message}</p>
           <div className="input-container">
-            <input 
+            <input
+              tabIndex="0"
+              aria-label="Correo electrónico" 
               className="input-field" 
               type="email" 
               value={email} 
@@ -211,6 +220,8 @@ function Formlogin(props) {
           
           <div className="input-container">
             <input 
+              tabIndex="0"
+              aria-label="Correo electrónico" 
               className="input-field" 
               type="password" 
               value={password} 
@@ -224,6 +235,7 @@ function Formlogin(props) {
           <span
             onClick={handleShowFormSendEmail}
             type="button"
+            tabIndex="0"
           >
             ¿Olvidaste tu contraseña?
           </span>
