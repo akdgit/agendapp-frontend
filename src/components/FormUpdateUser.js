@@ -88,6 +88,8 @@ function UpdateUserForm({ userId, onClose }) {
                     <label>
                         Apellido:
                         <input
+                            tabIndex="0"
+                            aria-label="Apellido"
                             type="text"
                             value={fullname}
                             onChange={(e) => setFullname(e.target.value)}
@@ -98,6 +100,8 @@ function UpdateUserForm({ userId, onClose }) {
                     <label>
                         Correo:
                         <input
+                            tabIndex="0"
+                            aria-label="Correo elecytrónico"
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
