@@ -189,6 +189,12 @@ function Formlogin(props) {
     }
   };*/
 
+  const sendEmailKdy = (e) => {
+    if (e.key === "Enter") {
+      handleShowFormSendEmail();
+    }
+  }
+
   return (
     <div className="content-login">
       {showFormSendEmail ? (
@@ -234,6 +240,7 @@ function Formlogin(props) {
           <button className="login-button" type="submit">{props.login}</button>
           <span
             onClick={handleShowFormSendEmail}
+            onKeyDown={sendEmailKdy}
             type="button"
             tabIndex="0"
           >
