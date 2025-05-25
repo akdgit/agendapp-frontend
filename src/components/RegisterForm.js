@@ -56,12 +56,14 @@ function RegisterForm() {
 
   return (
     <div className="register-page">
-      <div className="register-content">
-        <h2>Registro de usuario</h2>
+      <div tabIndex="0" aria-labelledby='register-title' className="register-content">
+        <h2 id='register-title'>Registro de usuario</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleRegister}>
           <div className="input-container">
             <input
+              tabIndex="0"
+              aria-label='Nombre'
               className='input-field'
               type="text"
               value={name}
@@ -72,6 +74,8 @@ function RegisterForm() {
           </div>
           <div className="input-container">
             <input
+              tabIndex="0"
+              aria-label='Apellido'
               className='input-field'
               type="text"
               value={fullname}
@@ -82,6 +86,8 @@ function RegisterForm() {
           </div>
           <div className="input-container">
             <input
+              tabIndex="0"
+              aria-label='Correo Electrónico'
               className='input-field'
               type="email"
               value={email}
@@ -92,6 +98,8 @@ function RegisterForm() {
           </div>
           <div className="input-container">
             <input
+              tabIndex="0"
+              aria-label='Contraseña'
               className='input-field'
               type="password"
               value={password}
