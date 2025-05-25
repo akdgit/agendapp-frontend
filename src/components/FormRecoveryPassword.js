@@ -131,10 +131,12 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
 
     return (
         <div className="recovery">
-            <form className="form-recovery" onSubmit={handlePasswordReset}>
-                <h1>Recuperar Contraseña</h1>
+            <form aria-labelledby="form-label" tabIndex="0" className="form-recovery" onSubmit={handlePasswordReset}>
+                <h1 id="form-title" >Recuperar Contraseña</h1>
                 <p>Ingresa el código recibido</p>
                 <input
+                    tabIndex="0"
+                    aria-label="Ingresa el código recibido"
                     type="number"
                     pattern="[0-9]{0,4}"
                     value={enteredCode}
@@ -144,16 +146,20 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
                     disabled={isCodeCorrect} // Desactiva el input si el código es correcto
                 />
                 <p>¿No has recibido tu código? Inténtalo de nuevo.</p>
-                <button type="button" 
-                onClick={handleResendCode} 
-                className="reenviar"
-                disabled={isCodeCorrect} // Desactiva el botòn si el código es correcto
+                <button 
+                    aria-label="Si no has recibido el código, pulsa para"
+                    type="button" 
+                    onClick={handleResendCode} 
+                    className="reenviar"
+                    disabled={isCodeCorrect} // Desactiva el botòn si el código es correcto
                 > 
                     Reenviar código 
                 </button>
                 {isCodeCorrect && (
                     <>
                         <input
+                            tabIndex="0"
+                            aria-label="Ingresar nueva clave"
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -162,6 +168,8 @@ function RecuperarContraseña({ email, onClose, recoveryCode }) {
                             required
                         />
                         <input
+                            tabIndex="0"
+                            aria-label="Confirmar clave"
                             type="password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
