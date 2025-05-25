@@ -51,10 +51,12 @@ function FormSendEmail({ onClose }) {
     return (
         <div className="send">
             {!showRecuperarContraseña ? (
-                <form className="formsend" onSubmit={(e) => { e.preventDefault(); handleSendEmail(); }}>
-                    <h1>Enviar correo</h1>
+                <form aria-labelledby="form-title" role="region" tabIndex="0" className="formsend" onSubmit={(e) => { e.preventDefault(); handleSendEmail(); }}>
+                    <h1 id="form-title">Enviar correo</h1>
                     <p>Se enviarà un còdigo de recuperaciòn a tu bandeja de entrada.</p>
                     <input
+                        tabIndex="0"
+                        aria-label="Ingrese su correo para enviar código de recuperación"
                         type="email"
                         placeholder="Ingresa tu correo"
                         value={email}
